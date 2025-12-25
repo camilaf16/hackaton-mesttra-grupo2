@@ -98,9 +98,14 @@ public class Main {
      * colunas.
      * Nível de complexidade: 3 de 10
      */
-    static void inicializarTabuleiro() {
-        //TODO 10: Implementar método conforme explicação
 
+    // Inicializa tabuleiro populando todas as posições como vazia.
+    private static void inicializarTabuleiro() {
+        for (int i=0; i<TAMANHO_TABULEIRO; i++) {
+            for (int j=0; j<TAMANHO_TABULEIRO; j++) {
+                tabuleiro [i] [j] = ' ';
+            }
+        }
     }
 
     /*
