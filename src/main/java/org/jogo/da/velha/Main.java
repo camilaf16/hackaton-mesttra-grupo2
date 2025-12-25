@@ -350,9 +350,17 @@ public class Main {
      * retornado através do comando return
      * Nível de complexidade: 3 de 10
      */
-    static void atualizaTabuleiro(int[] jogada, char caractereJogador) {
-        //TODO 27: Implementar método conforme explicação
 
+    // Atualiza tabuleiro com o caractere correspondente.
+    static void atualizaTabuleiro(int[] jogada, char caractereJogador) { 
+        int linha = jogada[0];
+        int coluna = jogada [1];
+        if ((linha >= 0 && linha < TAMANHO_TABULEIRO) && 
+            (coluna >= 0 && coluna < TAMANHO_TABULEIRO)) {
+                tabuleiro[linha][coluna] = caractereJogador;
+        } else {
+            System.out.println("ERRO! Posição inválida.");
+        }         
     }
 
     /*
