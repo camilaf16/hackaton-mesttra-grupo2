@@ -404,9 +404,17 @@ public class Main {
      * função retornarPosicoesLivres. Retorne true se teve empate ou false
      * Nível de complexidade: 3 de 10
      */
-    static boolean teveEmpate() {
-        //TODO 31: Implementar método conforme explicação
 
+    // Verifica todas as casas do tabuleiro, caso estejam todas ocupadas, retorna verdadeiro, ou seja, empate!
+    private static boolean teveEmpate() {
+        for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+            for (int j =0; j < TAMANHO_TABULEIRO; j++) {
+                if (tabuleiro[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /*
