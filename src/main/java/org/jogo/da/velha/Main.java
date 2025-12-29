@@ -215,7 +215,14 @@ public class Main {
      * Nível de complexidade: 4 de 10
      */
     static int[] converterJogadaStringParaVetorInt(String jogada) {
-        //TODO 16: Implementar método conforme explicação
+        String [] partes = jogada.split(" ");
+
+        int[] resultado = new int[2];
+
+        resultado [0] = Integer.parseInt(partes[0]);
+        resultado [1] = Integer.parseInt(partes[1]);
+
+        return resultado;
     }
 
     /*
@@ -331,6 +338,26 @@ public class Main {
         //TODO 26: Implementar método conforme explicação
         // execute no início deste método a chamada ao método limparTela
         // para garantir que seja exibido o tabuleiro sem nenhum conteúdo antes dele.
+
+        limparTela();
+
+        for (int linha = 0; linha < 3; linha++) {
+
+            for (int colunas = 0; colunas < 3; colunas++) {
+                
+                System.out.println(" " + tabuleiro[linha][colunas] + " ");
+
+                if (colunas < 2) {
+                    System.out.print(" | ");
+                }
+            }
+
+            System.out.println();
+
+            if (linha < 2) {
+                System.out.println("--------");
+            }
+        }
     }
 
     /*
