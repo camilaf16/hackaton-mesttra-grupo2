@@ -7,7 +7,7 @@ public class Main {
     // Estes caracteres são aceitos como caracteres para representarem
     // os jogadores. Utizado para evitar caracteres que não combinem com
     // o desenho do tabuleiro.
-    final static String CARACTERES_IDENTIFICADORES_ACEITOS = "XOUC"; //U -> usuário, C -> Computador
+    final static String CARACTERES_IDENTIFICADORES_ACEITOS = "XOUC"; // U -> usuário, C -> Computador
 
     // Tamanho do tabuleiro 3x3. Para o primeiro nivel de dificuldade
     // considere que este valor não será alterado.
@@ -86,7 +86,6 @@ public class Main {
         teclado.close();
     }
 
-
     /*
      * Descrição: Utilizado para iniciar a matriz/tabuleiro com o caractere ' '
      * espaço, no início do jogo. Matrizes de char precisam ter um valor
@@ -99,7 +98,7 @@ public class Main {
      * Nível de complexidade: 3 de 10
      */
     static void inicializarTabuleiro() {
-        //TODO 10: Implementar método conforme explicação
+        // TODO 10: Implementar método conforme explicação
 
     }
 
@@ -114,7 +113,7 @@ public class Main {
      * Nível de complexidade: 4 de 10
      */
     static char obterCaractereUsuario() {
-        //TODO 11: Implementar método conforme explicação
+        // TODO 11: Implementar método conforme explicação
 
     }
 
@@ -132,7 +131,7 @@ public class Main {
      * Nível de complexidade: 4 de 10
      */
     static char obterCaractereComputador(char caractereUsuario) {
-        //TODO 12: Implementar método conforme explicação
+        // TODO 12: Implementar método conforme explicação
     }
 
     /*
@@ -146,7 +145,7 @@ public class Main {
      * Nível de complexidade: 3 de 10
      */
     static boolean jogadaValida(String posicoesLivres, int linha, int coluna) {
-        //TODO 13: Implementar método conforme explicação
+        // TODO 13: Implementar método conforme explicação
     }
 
     /*
@@ -175,7 +174,7 @@ public class Main {
      * Nível de complexidade: 5 de 10
      */
     static int[] obterJogadaUsuario(String posicoesLivres, Scanner teclado) {
-        //TODO 14: Implementar método conforme explicação
+        // TODO 14: Implementar método conforme explicação
     }
 
     /*
@@ -202,7 +201,7 @@ public class Main {
      * Nível de complexidade: 6 de 10
      */
     static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
-        //TODO 15: Implementar método conforme explicação
+        // TODO 15: Implementar método conforme explicação
     }
 
     /*
@@ -215,7 +214,7 @@ public class Main {
      * Nível de complexidade: 4 de 10
      */
     static int[] converterJogadaStringParaVetorInt(String jogada) {
-        //TODO 16: Implementar método conforme explicação
+        // TODO 16: Implementar método conforme explicação
     }
 
     /*
@@ -223,12 +222,13 @@ public class Main {
      * do usuário jogar. Este método deve exibir uma mensagem que é a vez do usuário
      * jogar. Este método é encarregado de obter a jogada do usuário através do
      * método obterJogadaUsuario, depois realizar a atualização do tabuleiro através
-     * do método atualizaTabuleiro. Lembre-se que para chamar o método obterJogadaUsuario
+     * do método atualizaTabuleiro. Lembre-se que para chamar o método
+     * obterJogadaUsuario
      * é necessário saber quais posições estão livres
      * Nível de complexidade: 5 de 10
      */
     static void processarVezUsuario(char caractereUsuario) {
-        //TODO 17: Implementar método conforme explicação
+        // TODO 17: Implementar método conforme explicação
     }
 
     /*
@@ -239,47 +239,79 @@ public class Main {
      * Lembre-se que para chamar o método obterJogadaUsuario
      * é necessário saber quais posições estão livres
      * Nível de complexidade: 5 de 10 se o computador for jogar aleatoriamente
-     * Nível de complexidade: 8 de 10 se o computador for jogar sempre para se defender
+     * Nível de complexidade: 8 de 10 se o computador for jogar sempre para se
+     * defender
      * Nível de complexidade: 10 de 10 se o computador for jogar para ganhar
      */
     static void processarVezComputador(char caractereComputador) {
-        //TODO 18: Implementar método conforme explicação
+        // TO DO 18: Obter a lista de posições livres no tabuleiro
+
+        // lembrando que: x = linha e y = coluna
+
+        // declaração da variável tipo String das posições livres da matriz
+        String listaPosicoesLivres = "";
+
+        // montagem da lista de posições que estão vazias no formato xy
+        for (int linha = 0; linha < tabuleiro.length; linha++) {
+            for (int coluna = 0; coluna < tabuleiro[linha].length; coluna++) {
+
+                // caso a posição estiver livre
+                if (tabuleiro[linha][coluna] == ' ') {
+                    listaPosicoesLivres += linha + "" + coluna + ";";
+                }
+            }
+        }
+
+        System.out.println("Posições Livres: " + listaPosicoesLivres);
+
+        // caso não ter mais posições livres o computador não joga
+        if (listaPosicoesLivres.isEmpty()) {
+            System.out.println("Computador não consegue jogar pois não há mais posições livres!");
+            return; // Sai do método, pois não há jogada possível
+        }
+
+        // seleciona a primeira posição livre para jogar
+        String jogadaComputador = listaPosicoesLivres.split(" ")[0];
+        int linhaComputador = Character.getNumericValue(jogadaComputador.charAt(0));
+        int colunaComputador = Character.getNumericValue(jogadaComputador.charAt(1));
+
+        // atualiza o tabuleiro com a jogada do computador
+        tabuleiro[linhaComputador][colunaComputador] = caractereComputador;
+        System.out.println(
+                "Computador jogou na posição: Linha: " + (linhaComputador + 1) + ", Coluna: " + (colunaComputador + 1));
     }
 
-    /*
-     * Descrição: Utilizado para identificar a lista de posições livres no
-     * tabuleiro. Esta lista é uma string no formato xy. Onde x é a linha e y a
-     * coluna. Se existir mais de uma posição livre, teremos uma lista de valores xy
-     * separados por ; exemplo: 00;01;20; Neste exemplo as posições linha 0 e
-     * coluna 0; linha 0 e coluna 1; linha 2 e coluna 0 estão livres.
-     * Lembre-se que os índices nas matrizes iniciam em 0. Para o primeiro nível
-     * de complexidade considere um tabuleiro apenas de tamanho 3x3, 3 linhas e 3
-     * colunas. Depois de montar a string retorne a mesma através do comando return
-     * Nível de complexidade: 5 de 10
-     */
     static String retornarPosicoesLivres() {
-        //TODO 19: Implementar método conforme explicação
+        // TO DO: 19: Método responsável por identificar e retornar todas as posições livres do tabuleiro.
+
+        // StringBuilder: permite montar a string final sem criar várias instâncias de String
+        StringBuilder posicoesLivres = new StringBuilder();
+
+        // variável que representa o número da posição lógica no tabuleiro (1 a 9)
+        int posicao = 1;
+
+        // percorre todas as linhas do tabuleiro
+        for (int linha = 0; linha < tabuleiro.length; linha++) {
+
+            // percorre todas as colunas da linha atual
+            for (int coluna = 0; coluna < tabuleiro[linha].length; coluna++) {
+
+                // se o caractere na posição for um espaço (' '), significa que está livre
+                if (tabuleiro[linha][coluna] == ' ') {
+                    posicoesLivres.append(posicao).append(" ");
+                }
+
+                // incrementa a posição lógica independente de estar ocupada ou não
+                posicao++;
+            }
+        }
+
+        // retorna a String contendo todas as posições livres
+        return posicoesLivres.toString();
     }
 
-
-    /*
-     * Descrição: Utilizado para verificar se o jogador identificado por
-     * caractereJogador ganhou o jogo. No jogo da velha um usuário ganha
-     * quando ele completa uma linha ou uma coluna ou uma diagonal. Assim
-     * este método verifica todas as possibilidades. No entanto, este método
-     * utiliza outros métodos para auxiliar nesta verificação. Para identificar
-     * se o usuário em questão ganhou na linha, é invocado o método
-     * teveGanhadorLinha(), para identificar na coluna é invocado o método
-     * teveGanhadorColuna(), para identificar na diagonal principal é invocado
-     * o método teveGanhadorDiagonalPrincipal() e para identificar na diagonal
-     * secundária é utilizado o método teveGanhadorDiagonalSecundaria(). Se
-     * o pelo menos um destes métodos retornar verdadeiro, o método teveGanhador
-     * retorna true, caso contrário retorna false
-     * Nível de complexidade: 4 de 10 se o tabuleiro for fixo 3x3
-     * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico
-     */
     static boolean teveGanhador(char caractereJogador) {
-        //TODO 20: Implementar método conforme explicação
+        // TODO 20: Implementar método conforme explicação
     }
 
     /*
@@ -294,19 +326,19 @@ public class Main {
      * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico
      */
     static boolean teveGanhadorLinha(char caractereJogador) {
-        //TODO 21: Implementar método conforme explicação
+        // TODO 21: Implementar método conforme explicação
     }
 
     static boolean teveGanhadorColuna(char caractereJogador) {
-        //TODO 22: Implementar método conforme explicação
+        // TODO 22: Implementar método conforme explicação
     }
 
-    static boolean teveGanhadorDiagonalPrincipal( char caractereJogador) {
-        //TODO 23: Implementar método conforme explicação
+    static boolean teveGanhadorDiagonalPrincipal(char caractereJogador) {
+        // TODO 23: Implementar método conforme explicação
     }
 
     static boolean teveGanhadorDiagonalSecundaria(char caractereJogador) {
-        //TODO 24: Implementar método conforme explicação
+        // TODO 24: Implementar método conforme explicação
     }
 
     /*
@@ -316,7 +348,7 @@ public class Main {
      * Nível de complexidade: 3 de 10
      */
     static void limparTela() {
-        //TODO 25: Implementar método conforme explicação
+        // TODO 25: Implementar método conforme explicação
     }
 
     /*
@@ -328,7 +360,7 @@ public class Main {
      * Nível de complexidade: 4 de 10
      */
     static void exibirTabuleiro() {
-        //TODO 26: Implementar método conforme explicação
+        // TODO 26: Implementar método conforme explicação
         // execute no início deste método a chamada ao método limparTela
         // para garantir que seja exibido o tabuleiro sem nenhum conteúdo antes dele.
     }
@@ -346,7 +378,7 @@ public class Main {
      * Nível de complexidade: 3 de 10
      */
     static void atualizaTabuleiro(int[] jogada, char caractereJogador) {
-        //TODO 27: Implementar método conforme explicação
+        // TODO 27: Implementar método conforme explicação
 
     }
 
@@ -358,7 +390,7 @@ public class Main {
      * Nível Complexidade: 2 de 10
      */
     static void exibirVitoriaComputador() {
-        //TODO 28: Implementar método conforme explicação
+        // TODO 28: Implementar método conforme explicação
     }
 
     /*
@@ -369,7 +401,7 @@ public class Main {
      * Nível Complexidade: 2 de 10
      */
     static void exibirVitoriaUsuario() {
-        //TODO 29: Implementar método conforme explicação
+        // TODO 29: Implementar método conforme explicação
     }
 
     /*
@@ -380,7 +412,7 @@ public class Main {
      * Nível Complexidade: 2 de 10
      */
     static void exibirEmpate() {
-        //TODO 30: Implementar método conforme explicação
+        // TODO 30: Implementar método conforme explicação
     }
 
     /*
@@ -392,7 +424,7 @@ public class Main {
      * Nível de complexidade: 3 de 10
      */
     static boolean teveEmpate() {
-        //TODO 31: Implementar método conforme explicação
+        // TODO 31: Implementar método conforme explicação
 
     }
 
@@ -405,8 +437,7 @@ public class Main {
      * Nível de complexidade: 3 de 10
      */
     static boolean sortearValorBooleano() {
-        //TODO 32: Implementar método conforme explicação
+        // TODO 32: Implementar método conforme explicação
     }
-
 
 }
