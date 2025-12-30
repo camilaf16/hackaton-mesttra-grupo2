@@ -21,22 +21,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         inicializarTabuleiro();
 
-        // Definimos aqui qual é o caractere que cada jogador irá utilizar no jogo.
-        //TODO 01: chame as funções obterCaractereUsuario() e obterCaractereComputador
-        //para definir quais caracteres da lista de caracteres aceitos que o jogador
-        //quer configurar para ele e para o computador.
-        char caractereUsuario = ????;
-        char caractereComputador = ????;
-
-        // Esta variavel é utilizada para definir se o usuário começa a jogar ou não.
-        // Valor true, usuario começa jogando, valor false computador começa.
-        //TODO 02: obtenha o valor booleano sorteado
-        boolean vezUsuarioJogar = ????;
-
-        boolean jogoContinua;
+        char caractereUsuario = obterCaractereUsuario(); 
+        char caractereComputador = obterCaractereComputador(caractereUsuario);         
+        boolean vezUsuarioJogar = sortearValorBooleano(); 
+        boolean jogoContinua = false;
 
         do {
             // controla se o jogo terminou
@@ -85,54 +75,52 @@ public class Main {
 
         teclado.close();
     }
-
-
-    /*
-     * Descrição: Utilizado para iniciar a matriz/tabuleiro com o caractere ' '
-     * espaço, no início do jogo. Matrizes de char precisam ter um valor
-     * diferente de '' vazio. A idéia é, se tiver ' ' espaço, a posição está
-     * livre. Qualquer outro caractere presente na posição, representa o
-     * caractere do jogador em questão: usuário ou computador. Um exemplo seria,
-     * 'X' para usuário e 'O' para computador. Para o primeiro nível de
-     * complexidade considere um tabuleiro apenas de tamanho 3x3, 3 linhas e 3
-     * colunas.
-     * Nível de complexidade: 3 de 10
-     */
-    static void inicializarTabuleiro() {
-        //TODO 10: Implementar método conforme explicação
-
+    // Inicializa tabuleiro populando todas as posições como vazia.
+    private static void inicializarTabuleiro() {
+        for (int i=0; i<TAMANHO_TABULEIRO; i++) {
+            for (int j=0; j<TAMANHO_TABULEIRO; j++) {
+                tabuleiro [i] [j] = ' ';
+            }
+        }
     }
-
-    /*
-     * Descrição: Utilizado para obter no início do jogo qual o caractere que o
-     * usuário quer utilizar para representar ele próprio. Este método recebe o
-     * teclado para permitir que o usuário digite o caractere desejado. Faça a
-     * leitura do caractere desejado pelo usuário, através do teclado, realize
-     * as validações para não aceitar caracteres que não estejam definidos pela
-     * constante CARACTERES_IDENTIFICADORES_ACEITOS, e retorne o caractere lido
-     * através do return.
-     * Nível de complexidade: 4 de 10
-     */
+    //Pega o caractere que o usuário escolheu para jogar e verifica se está correto.
     static char obterCaractereUsuario() {
-        //TODO 11: Implementar método conforme explicação
 
+        while (true) {
+            limparTela();
+            System.out.println();
+            System.out.println("Digite o caractere para ser representado. Utilize uma dessas 4 letras: X, O, U, C");
+
+            String entrada = teclado.nextLine().trim();
+
+            // Verifica se digitou algo
+            if (entrada.isEmpty()) {
+                continue;
+            }
+
+            char caractereUsuario = Character.toUpperCase(entrada.charAt(0));
+
+            for (char c : CARACTERES_IDENTIFICADORES_ACEITOS.toCharArray()) {
+                if (caractereUsuario == Character.toUpperCase(c)) {
+                    return c;
+                }
+            } 
+        }
     }
-
-    /*
-     * Descrição: Utilizado para obter no início do jogo qual o caractere que o
-     * usuário quer utilizar para representar o computador. Este método recebe o
-     * teclado e recebe o caractere que foi configurado para o usuário, pois o
-     * usuário e o computador não podem jogar com o mesmo caractere. Por exemplo,
-     * se o usuário configurou para ele o caractere X ele não pode escolher o X
-     * como o caractere também para o computador. Neste método apenas os seguintes
-     * caracteres definidos pela constante CARACTERES_IDENTIFICADORES_ACEITOS devem
-     * ser aceitos. Lembre-se que o caractere armazenado em caractereUsuario não
-     * pode ser aceito. Após realizar a leitura do caractere pelo teclado e
-     * validá-lo, faça o return deste caractere.
-     * Nível de complexidade: 4 de 10
-     */
+    //Escolhe o caractere do computador baseado no caractere escolhido pelo usuário.
     static char obterCaractereComputador(char caractereUsuario) {
-        //TODO 12: Implementar método conforme explicação
+        caractereUsuario = Character.toUpperCase(caractereUsuario);
+        switch(caractereUsuario){
+            case 'X':
+                return 'O';
+            case 'O':
+                return 'X';
+            case 'U':
+                return 'C';
+            case 'C':
+                return 'U';
+        }
+        return ' ';
     }
 
     /*
@@ -333,21 +321,16 @@ public class Main {
         // para garantir que seja exibido o tabuleiro sem nenhum conteúdo antes dele.
     }
 
-    /*
-     * Descrição: Utilizado para atualizar o tabuleiro com o caractere que
-     * identifica o jogador. Este método recebe o tabuleiro, um vetor jogada com
-     * duas posicoes. jogada[0] representa a linha escolhida pelo jogador. jogada[1]
-     * representa a coluna escolhida pelo jogador. Os valores armazenados no vetor
-     * já deve estar no formato de índice, ou seja, se jogada[0] contiver o valor
-     * 1 e jogada[1] contiver o valor 2, significa que o índice/linha 1 e
-     * índice/coluna 2 da matriz devem ser atualizados com o caractere informado na
-     * variável caractereJogador. Depois de atualizar o tabuleiro, o mesmo deve ser
-     * retornado através do comando return
-     * Nível de complexidade: 3 de 10
-     */
-    static void atualizaTabuleiro(int[] jogada, char caractereJogador) {
-        //TODO 27: Implementar método conforme explicação
-
+    // Atualiza tabuleiro com o caractere correspondente.
+    static void atualizaTabuleiro(int[] jogada, char caractereJogador) { 
+        int linha = jogada[0];
+        int coluna = jogada [1];
+        if ((linha >= 0 && linha < TAMANHO_TABULEIRO) && 
+            (coluna >= 0 && coluna < TAMANHO_TABULEIRO)) {
+                tabuleiro[linha][coluna] = caractereJogador;
+        } else {
+            System.out.println("ERRO! Posição inválida.");
+        }         
     }
 
     /*
@@ -383,30 +366,20 @@ public class Main {
         //TODO 30: Implementar método conforme explicação
     }
 
-    /*
-     * Descrição: Utilizado para analisar se ocorreu empate no jogo. Para o primeiro
-     * nível de deficuldade, basta verificar se todas as posições do tabuleiro não
-     * estão preenchidas com o caractere ' '. Não se preocupe se teve ganhador, não
-     * é responsabilidade deste método esta análise. Sugestão: pense em utilizar a
-     * função retornarPosicoesLivres. Retorne true se teve empate ou false
-     * Nível de complexidade: 3 de 10
-     */
-    static boolean teveEmpate() {
-        //TODO 31: Implementar método conforme explicação
-
+    // Verifica todas as casas do tabuleiro, caso estejam todas ocupadas, retorna verdadeiro, ou seja, empate!
+    private static boolean teveEmpate() {
+        for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+            for (int j =0; j < TAMANHO_TABULEIRO; j++) {
+                if (tabuleiro[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
-
-    /*
-     * Descrição: Utilizado para realizar o sorteio de um valor booleano. Este
-     * método deve sortear um valor entre true ou false. Este valor será
-     * utilizado para identificar quem começa a jogar. Dica: pesquise sobre
-     * o método random.nextBoolean() na internet. Após ralizar o sorteio o
-     * método deve retornar o valor sorteado.
-     * Nível de complexidade: 3 de 10
-     */
+    // Sorteia um valor verdadeiro ou falso.
     static boolean sortearValorBooleano() {
-        //TODO 32: Implementar método conforme explicação
+        Random random = new Random();
+        return random.nextBoolean();
     }
-
-
 }
