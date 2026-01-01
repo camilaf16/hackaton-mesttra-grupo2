@@ -76,7 +76,7 @@ public class Main {
         
             //TODO 09: Este if deve executar apenas se o jogo continua E 
             //ocorreu tempate. Utilize o metodo teveEmpate()
-            if ( /*escreva aqui a condicao conforme o TODO acima*/ ) {
+            if (jogoContinua || teveEmpate()) {
                 exibirTabuleiro();
                 exibirEmpate();
                 jogoContinua = false;
@@ -118,7 +118,34 @@ public class Main {
      * Nível de complexidade: 4 de 10
      */
     static char obterCaractereUsuario() {
-        // TODO 11: Implementar método conforme explicação
+        //TODO 11: Implementar método conforme explicação
+        
+        char valor = '\0';
+        boolean valorValido = false;
+
+        while(!valorValido){
+            try {
+                System.out.print("Digite o caractere do usuario: ");
+                String entrada = teclado.nextLine();
+
+                if (entrada.isEmpty()) {
+                    throw new IllegalArgumentException("Entrada vazia.");
+                }
+
+                if (entrada.length() > 0) {
+                valor = Character.toUpperCase(entrada.charAt(0));
+                    if(CARACTERES_IDENTIFICADORES_ACEITOS.indexOf(valor) != -1){
+                        valorValido = true;
+                    } else {
+                        throw new IllegalArgumentException("Valor digitado é incorreto.");
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                System.out.println();
+            }
+        }
+        return valor;
 
     }
 
@@ -136,7 +163,34 @@ public class Main {
      * Nível de complexidade: 4 de 10
      */
     static char obterCaractereComputador(char caractereUsuario) {
-        // TODO 12: Implementar método conforme explicação
+        //TODO 12: Implementar método conforme explicação
+
+        char valor = '\0';
+        boolean valorValido = false;
+
+        while(!valorValido){
+            try {
+                System.out.println("Digite o caractere do computador: ");
+                String entrada = teclado.nextLine();
+
+                if (entrada.isEmpty()) {
+                    throw new IllegalArgumentException("Entrada vazia.");
+                }
+                
+                if (entrada.length() > 0) {
+                valor = Character.toUpperCase(entrada.charAt(0));
+                    if(CARACTERES_IDENTIFICADORES_ACEITOS.indexOf(valor) != -1 
+                    && valor != caractereUsuario){
+                        valorValido = true;
+                    } else {
+                        throw new IllegalArgumentException("Valor digitado é incorreto.");
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Valor digitado é incorreto.");
+            }
+        }
+        return valor;
     }
 
     /*
