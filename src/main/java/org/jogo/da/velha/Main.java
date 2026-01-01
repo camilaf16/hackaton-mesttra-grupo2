@@ -66,12 +66,13 @@ public class Main {
                 //TODO 06: Este if deve executar apenas se teve ganhador
                 if ( teveGanhador(caractereComputador) ) {
 
-                    //TODO 07: Exiba que o computador ganhou
+                    exibirTabuleiro();
+                    exibirVitoriaComputador();
                     jogoContinua = false;
                 }
 
                 //TODO 08: defina qual o vaor a variavel abaixo deve possuir para que a proxima execucao do laco seja a vez do usuário
-                vezUsuarioJogar = ????;
+                vezUsuarioJogar = true;
             }
         
             //TODO 09: Este if deve executar apenas se o jogo continua E 
