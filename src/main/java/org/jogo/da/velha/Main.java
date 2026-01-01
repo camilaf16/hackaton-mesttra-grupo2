@@ -234,6 +234,14 @@ public class Main {
      */
     static void processarVezUsuario(char caractereUsuario) {
         //TODO 17: Implementar método conforme explicação
+        System.out.println("VEZ DO USUÁRIO");
+        System.out.println();
+
+        String posicoesLivres = retornarPosicoesLivres();
+
+        int[] jogada = obterJogadaUsuario(posicoesLivres, teclado);
+
+        atualizaTabuleiro(jogada, caractereUsuario);
     }
 
     /*
@@ -285,6 +293,12 @@ public class Main {
      */
     static boolean teveGanhador(char caractereJogador) {
         //TODO 20: Implementar método conforme explicação
+
+        return teveGanhadorLinha(caractereJogador) 
+        || teveGanhadorColuna(caractereJogador)
+        || teveGanhadorDiagonalPrincipal(caractereJogador) 
+        || teveGanhadorDiagonalSecundaria(caractereJogador);
+
     }
 
     /*
