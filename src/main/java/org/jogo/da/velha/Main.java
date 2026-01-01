@@ -306,12 +306,22 @@ public class Main {
         //TODO 22: Implementar método conforme explicação
     }
 
-    static boolean teveGanhadorDiagonalPrincipal( char caractereJogador) {
-        //TODO 23: Implementar método conforme explicação
+    static boolean teveGanhadorDiagonalPrincipal(char caractereJogador) {
+        for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+            if (tabuleiro[i][i] != caractereJogador) {
+                return false;
+            }
+        }
+        return true;
     }
 
     static boolean teveGanhadorDiagonalSecundaria(char caractereJogador) {
-        //TODO 24: Implementar método conforme explicação
+        for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+            if (tabuleiro[i][TAMANHO_TABULEIRO - 1 - i] != caractereJogador) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /*
