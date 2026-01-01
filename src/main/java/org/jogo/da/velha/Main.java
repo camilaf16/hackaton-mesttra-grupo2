@@ -1,7 +1,7 @@
-package org.jogo.da.velha;
-
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
+import org.jogo.da.velha.tools.Utilities;
 
 public class Main {
     // Estes caracteres são aceitos como caracteres para representarem
@@ -10,18 +10,18 @@ public class Main {
     final static String CARACTERES_IDENTIFICADORES_ACEITOS = "XOUC"; // U -> usuário, C -> Computador
 
     // Tamanho do tabuleiro 3x3. Para o primeiro nivel de dificuldade
-    // considere que este valor não será alterado.
+    // considere que este valor não será alterado. 
     // Depois que você conseguir implementar o raciocionio para o tabuleiro 3x3
     // tente ajustar o código para funcionar para qualquer tamanho de tabuleiro
     final static int TAMANHO_TABULEIRO = 3;
 
     static char[][] tabuleiro = new char[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
-
+    
     static Scanner teclado = new Scanner(System.in);
 
     public static void main(String[] args) {
 
-
+        
         inicializarTabuleiro();
 
         // Definimos aqui qual é o caractere que cada jogador irá utilizar no jogo.
@@ -44,13 +44,13 @@ public class Main {
             exibirTabuleiro();
 
             if (vezUsuarioJogar){
-
+               
                 //TODO 03: Execute a chamada processar vez do usuario
 
                 // Verifica se o usuario venceu
-                //TODO 04: Este if deve executar apenas se teve ganhador
+                //TODO 04: Este if deve executar apenas se teve ganhador 
                 if ( /*TODO: esreva aqui a chamada para teveGanhador verificar se o usuário ganhou*/ ) {
-
+                    
                     exibirTabuleiro();
                     exibirVitoriaUsuario();
                     jogoContinua = false;
@@ -73,8 +73,8 @@ public class Main {
                 //TODO 08: defina qual o vaor a variavel abaixo deve possuir para que a proxima execucao do laco seja a vez do usuário
                 vezUsuarioJogar = ????;
             }
-
-            //TODO 09: Este if deve executar apenas se o jogo continua E
+        
+            //TODO 09: Este if deve executar apenas se o jogo continua E 
             //ocorreu tempate. Utilize o metodo teveEmpate()
             if ( /*escreva aqui a condicao conforme o TODO acima*/ ) {
                 exibirTabuleiro();
@@ -94,12 +94,17 @@ public class Main {
      * caractere do jogador em questão: usuário ou computador. Um exemplo seria,
      * 'X' para usuário e 'O' para computador. Para o primeiro nível de
      * complexidade considere um tabuleiro apenas de tamanho 3x3, 3 linhas e 3
-     * colunas.
+     * colunas. 
      * Nível de complexidade: 3 de 10
      */
-    static void inicializarTabuleiro() {
-        // TODO 10: Implementar método conforme explicação
 
+    // Inicializa tabuleiro populando todas as posições como vazia.
+    private static void inicializarTabuleiro() {
+        for (int i=0; i<TAMANHO_TABULEIRO; i++) {
+            for (int j=0; j<TAMANHO_TABULEIRO; j++) {
+                tabuleiro [i] [j] = ' ';
+            }
+        }
     }
 
     /*
@@ -145,7 +150,10 @@ public class Main {
      * Nível de complexidade: 3 de 10
      */
     static boolean jogadaValida(String posicoesLivres, int linha, int coluna) {
-        // TODO 13: Implementar método conforme explicação
+        //TODO 13: Implementar método conforme explicação
+        return posicoesLivres.contains(linha + "," + coluna);
+
+
     }
 
     /*
@@ -174,34 +182,34 @@ public class Main {
      * Nível de complexidade: 5 de 10
      */
     static int[] obterJogadaUsuario(String posicoesLivres, Scanner teclado) {
-        // TODO 14: Implementar método conforme explicação
+    String jogada;
+
+    while (true) {
+        System.out.println("Posições livres: " + posicoesLivres);
+        System.out.print("Digite sua jogada (linha e coluna): ");
+        jogada = teclado.nextLine();
+
+        if (posicoesLivres.contains(jogada)) {
+            break;
+        }
+
+        System.out.println("Jogada inválida! Tente novamente.");
     }
 
-    /*
-     * Descrição: Utilizado para obter do computador a linha e a coluna sorteada.
-     * Para isto o método utiliza as posições livres que ele recebeu como parametro.
-     * Como as posições livres estão no formato de string, uma sugestão é conveter a
-     * lista de pares linhacoluna que estão separados por ; em um vetor de String.
-     * Pense em utilizar o método split. A conversão para um vetor de string será
-     * útil para o próximo passo que é sortear uma posição livre.
-     * Para sortear uma das posições no vetor de posições livres, utilize o método
-     * random.nextInt() para sortear um número que esteja no intervalo de 0 até a
-     * quantidade de posições no vetor de posições livres. Pesquise pelo método
-     * random.nextInt() na internet para entender como ele funciona.
-     * Após o random sortear um número, utilize este número como o valor da posição
-     * do índice para acessar a jogada dentro do vetor de jogadas livres.
-     * Ao realizar este procedimento você terá uma jogada no formato xy onde x é
-     * a linha livre e y a coluna livre. Como o método obterJogadaComputador
-     * precisa devolver um vetor de inteiro é necessário converter esta string para
-     * um vetor de inteiro. Utilize para isto o método
-     * converterJogadaStringParaVetorInt(). Após a conversão, devolva o vetor de
-     * inteiro através do comando return. Para o nível de complexidade inicial,
-     * com esta implementação o computador não terá "inteligência" para se defender
-     * e nem para tentar ganhar.
-     * Nível de complexidade: 6 de 10
-     */
+    return Utilities.converterJogada(jogada);
+    }
+
     static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
-        // TODO 15: Implementar método conforme explicação
+    String[] jogadasLivres = posicoesLivres.split(";");
+
+    Random random = new Random();
+
+    int indiceSorteado = random.nextInt(jogadasLivres.length);
+
+    String jogada = jogadasLivres[indiceSorteado];
+
+    return Utilities.converterJogada(jogada);
+
     }
 
     /*
@@ -214,7 +222,14 @@ public class Main {
      * Nível de complexidade: 4 de 10
      */
     static int[] converterJogadaStringParaVetorInt(String jogada) {
-        // TODO 16: Implementar método conforme explicação
+        String [] partes = jogada.split(" ");
+
+        int[] resultado = new int[2];
+
+        resultado [0] = Integer.parseInt(partes[0]);
+        resultado [1] = Integer.parseInt(partes[1]);
+
+        return resultado;
     }
 
     /*
@@ -228,16 +243,24 @@ public class Main {
      * Nível de complexidade: 5 de 10
      */
     static void processarVezUsuario(char caractereUsuario) {
-        // TODO 17: Implementar método conforme explicação
+        //TODO 17: Implementar método conforme explicação
+        System.out.println("VEZ DO USUÁRIO");
+        System.out.println();
+
+        String posicoesLivres = retornarPosicoesLivres();
+
+        int[] jogada = obterJogadaUsuario(posicoesLivres, teclado);
+
+        atualizaTabuleiro(jogada, caractereUsuario);
     }
 
     /*
      * Descrição: Utilizado para realizar as ações necessárias para processar a vez
      * do computador jogar. Este método é encarregado de obter a jogada do
      * computador através do método obterJogadaComputador, depois realizar a
-     * atualização do tabuleiro através do método atualizaTabuleiro.
+     * atualização do tabuleiro através do método atualizaTabuleiro. 
      * Lembre-se que para chamar o método obterJogadaUsuario
-     * é necessário saber quais posições estão livres
+     * é necessário saber quais posições estão livres 
      * Nível de complexidade: 5 de 10 se o computador for jogar aleatoriamente
      * Nível de complexidade: 8 de 10 se o computador for jogar sempre para se
      * defender
@@ -310,8 +333,30 @@ public class Main {
         return posicoesLivres.toString();
     }
 
+    /*
+     * Descrição: Utilizado para verificar se o jogador identificado por
+     * caractereJogador ganhou o jogo. No jogo da velha um usuário ganha
+     * quando ele completa uma linha ou uma coluna ou uma diagonal. Assim
+     * este método verifica todas as possibilidades. No entanto, este método
+     * utiliza outros métodos para auxiliar nesta verificação. Para identificar
+     * se o usuário em questão ganhou na linha, é invocado o método
+     * teveGanhadorLinha(), para identificar na coluna é invocado o método
+     * teveGanhadorColuna(), para identificar na diagonal principal é invocado
+     * o método teveGanhadorDiagonalPrincipal() e para identificar na diagonal
+     * secundária é utilizado o método teveGanhadorDiagonalSecundaria(). Se
+     * o pelo menos um destes métodos retornar verdadeiro, o método teveGanhador
+     * retorna true, caso contrário retorna false
+     * Nível de complexidade: 4 de 10 se o tabuleiro for fixo 3x3
+     * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico 
+     */
     static boolean teveGanhador(char caractereJogador) {
-        // TODO 20: Implementar método conforme explicação
+        //TODO 20: Implementar método conforme explicação
+
+        return teveGanhadorLinha(caractereJogador) 
+        || teveGanhadorColuna(caractereJogador)
+        || teveGanhadorDiagonalPrincipal(caractereJogador) 
+        || teveGanhadorDiagonalSecundaria(caractereJogador);
+
     }
 
     /*
@@ -323,7 +368,7 @@ public class Main {
      * no caractereJogador. Se estiver presente retorna true, caso contrário retorna
      * false.
      * Nível de complexidade: 4 de 10 se o tabuleiro for fixo 3x3
-     * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico
+     * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico 
      */
     static boolean teveGanhadorLinha(char caractereJogador) {
         // TODO 21: Implementar método conforme explicação
@@ -334,11 +379,21 @@ public class Main {
     }
 
     static boolean teveGanhadorDiagonalPrincipal(char caractereJogador) {
-        // TODO 23: Implementar método conforme explicação
+        for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+            if (tabuleiro[i][i] != caractereJogador) {
+                return false;
+            }
+        }
+        return true;
     }
 
     static boolean teveGanhadorDiagonalSecundaria(char caractereJogador) {
-        // TODO 24: Implementar método conforme explicação
+        for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+            if (tabuleiro[i][TAMANHO_TABULEIRO - 1 - i] != caractereJogador) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /*
@@ -348,7 +403,23 @@ public class Main {
      * Nível de complexidade: 3 de 10
      */
     static void limparTela() {
-        // TODO 25: Implementar método conforme explicação
+        //TODO 25: Implementar método conforme explicação  
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+
+            ProcessBuilder pb;
+            if (os.contains("win")) {
+                pb = new ProcessBuilder("cmd", "/c", "cls");
+            } else {
+                // Linux/Mac usa "clear"
+                pb = new ProcessBuilder("clear");
+            }
+            pb.inheritIO().start().waitFor();
+
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Não foi possível limpar o console: " + e.getMessage());
+            Thread.currentThread().interrupt();
+        }      
     }
 
     /*
@@ -363,6 +434,26 @@ public class Main {
         // TODO 26: Implementar método conforme explicação
         // execute no início deste método a chamada ao método limparTela
         // para garantir que seja exibido o tabuleiro sem nenhum conteúdo antes dele.
+
+        limparTela();
+
+        for (int linha = 0; linha < 3; linha++) {
+
+            for (int colunas = 0; colunas < 3; colunas++) {
+                
+                System.out.println(" " + tabuleiro[linha][colunas] + " ");
+
+                if (colunas < 2) {
+                    System.out.print(" | ");
+                }
+            }
+
+            System.out.println();
+
+            if (linha < 2) {
+                System.out.println("--------");
+            }
+        }
     }
 
     /*
@@ -377,9 +468,17 @@ public class Main {
      * retornado através do comando return
      * Nível de complexidade: 3 de 10
      */
-    static void atualizaTabuleiro(int[] jogada, char caractereJogador) {
-        // TODO 27: Implementar método conforme explicação
 
+    // Atualiza tabuleiro com o caractere correspondente.
+    static void atualizaTabuleiro(int[] jogada, char caractereJogador) { 
+        int linha = jogada[0];
+        int coluna = jogada [1];
+        if ((linha >= 0 && linha < TAMANHO_TABULEIRO) && 
+            (coluna >= 0 && coluna < TAMANHO_TABULEIRO)) {
+                tabuleiro[linha][coluna] = caractereJogador;
+        } else {
+            System.out.println("ERRO! Posição inválida.");
+        }         
     }
 
     /*
@@ -423,21 +522,34 @@ public class Main {
      * função retornarPosicoesLivres. Retorne true se teve empate ou false
      * Nível de complexidade: 3 de 10
      */
-    static boolean teveEmpate() {
-        // TODO 31: Implementar método conforme explicação
 
+    // Verifica todas as casas do tabuleiro, caso estejam todas ocupadas, retorna verdadeiro, ou seja, empate!
+    private static boolean teveEmpate() {
+        for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+            for (int j =0; j < TAMANHO_TABULEIRO; j++) {
+                if (tabuleiro[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /*
      * Descrição: Utilizado para realizar o sorteio de um valor booleano. Este
      * método deve sortear um valor entre true ou false. Este valor será
      * utilizado para identificar quem começa a jogar. Dica: pesquise sobre
-     * o método random.nextBoolean() na internet. Após ralizar o sorteio o
+     * o método random.nextBoolean() na internet. Após ralizar o sorteio o 
      * método deve retornar o valor sorteado.
      * Nível de complexidade: 3 de 10
      */
     static boolean sortearValorBooleano() {
-        // TODO 32: Implementar método conforme explicação
+        java.util.Random random = new java.util.Random();
+        boolean sorteio = random.nextBoolean();
+        // comando para preparar a variavel para o sorteio
+        return sorteio;
+        //TODO 32: Implementar método conforme explicação
     }
+
 
 }
