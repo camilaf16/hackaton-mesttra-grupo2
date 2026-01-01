@@ -376,6 +376,22 @@ public class Main {
 
     static boolean teveGanhadorColuna(char caractereJogador) {
         // TODO 22: Implementar método conforme explicação
+
+        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
+            boolean ganhouNestaColuna = true;
+
+            for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+
+                if (tabuleiro[i][j] != caractereJogador) {
+                    ganhouNestaColuna = false;
+                    break;
+                }
+            }
+            if (ganhouNestaColuna == true) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static boolean teveGanhadorDiagonalPrincipal(char caractereJogador) {
@@ -550,6 +566,5 @@ public class Main {
         return sorteio;
         //TODO 32: Implementar método conforme explicação
     }
-
 
 }
