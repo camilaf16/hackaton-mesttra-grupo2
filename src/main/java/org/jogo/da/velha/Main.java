@@ -2,6 +2,7 @@ package org.jogo.da.velha;
 
 import java.util.Random;
 import java.util.Scanner;
+import org.jogo.da.velha.tools.Utilities;
 
 public class Main {
     // Estes caracteres são aceitos como caracteres para representarem
@@ -180,34 +181,34 @@ public class Main {
      * Nível de complexidade: 5 de 10
      */
     static int[] obterJogadaUsuario(String posicoesLivres, Scanner teclado) {
-        //TODO 14: Implementar método conforme explicação
+    String jogada;
+
+    while (true) {
+        System.out.println("Posições livres: " + posicoesLivres);
+        System.out.print("Digite sua jogada (linha e coluna): ");
+        jogada = teclado.nextLine();
+
+        if (posicoesLivres.contains(jogada)) {
+            break;
+        }
+
+        System.out.println("Jogada inválida! Tente novamente.");
     }
 
-    /*
-     * Descrição: Utilizado para obter do computador a linha e a coluna sorteada.
-     * Para isto o método utiliza as posições livres que ele recebeu como parametro.
-     * Como as posições livres estão no formato de string, uma sugestão é conveter a
-     * lista de pares linhacoluna que estão separados por ; em um vetor de String.
-     * Pense em utilizar o método split. A conversão para um vetor de string será
-     * útil para o próximo passo que é sortear uma posição livre.
-     * Para sortear uma das posições no vetor de posições livres, utilize o método
-     * random.nextInt() para sortear um número que esteja no intervalo de 0 até a
-     * quantidade de posições no vetor de posições livres. Pesquise pelo método
-     * random.nextInt() na internet para entender como ele funciona.
-     * Após o random sortear um número, utilize este número como o valor da posição
-     * do índice para acessar a jogada dentro do vetor de jogadas livres.
-     * Ao realizar este procedimento você terá uma jogada no formato xy onde x é
-     * a linha livre e y a coluna livre. Como o método obterJogadaComputador
-     * precisa devolver um vetor de inteiro é necessário converter esta string para
-     * um vetor de inteiro. Utilize para isto o método
-     * converterJogadaStringParaVetorInt(). Após a conversão, devolva o vetor de
-     * inteiro através do comando return. Para o nível de complexidade inicial,
-     * com esta implementação o computador não terá "inteligência" para se defender
-     * e nem para tentar ganhar.
-     * Nível de complexidade: 6 de 10
-     */
+    return Utilities.converterJogada(jogada);
+    }
+
     static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
-        //TODO 15: Implementar método conforme explicação
+    String[] jogadasLivres = posicoesLivres.split(";");
+
+    Random random = new Random();
+
+    int indiceSorteado = random.nextInt(jogadasLivres.length);
+
+    String jogada = jogadasLivres[indiceSorteado];
+
+    return Utilities.converterJogada(jogada);
+
     }
 
     /*
