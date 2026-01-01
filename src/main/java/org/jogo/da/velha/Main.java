@@ -98,8 +98,14 @@ public class Main {
      * colunas.
      * Nível de complexidade: 3 de 10
      */
-    static void inicializarTabuleiro() {
-        //TODO 10: Implementar método conforme explicação
+
+    // Inicializa tabuleiro populando todas as posições como vazia.
+    private static void inicializarTabuleiro() {
+        for (int i=0; i<TAMANHO_TABULEIRO; i++) {
+            for (int j=0; j<TAMANHO_TABULEIRO; j++) {
+                tabuleiro [i] [j] = ' ';
+            }
+        }
     }
 
     /*
@@ -354,9 +360,17 @@ public class Main {
      * retornado através do comando return
      * Nível de complexidade: 3 de 10
      */
-    static void atualizaTabuleiro(int[] jogada, char caractereJogador) {
-        //TODO 27: Implementar método conforme explicação
 
+    // Atualiza tabuleiro com o caractere correspondente.
+    static void atualizaTabuleiro(int[] jogada, char caractereJogador) { 
+        int linha = jogada[0];
+        int coluna = jogada [1];
+        if ((linha >= 0 && linha < TAMANHO_TABULEIRO) && 
+            (coluna >= 0 && coluna < TAMANHO_TABULEIRO)) {
+                tabuleiro[linha][coluna] = caractereJogador;
+        } else {
+            System.out.println("ERRO! Posição inválida.");
+        }         
     }
 
     /*
@@ -400,9 +414,17 @@ public class Main {
      * função retornarPosicoesLivres. Retorne true se teve empate ou false
      * Nível de complexidade: 3 de 10
      */
-    static boolean teveEmpate() {
-        //TODO 31: Implementar método conforme explicação
 
+    // Verifica todas as casas do tabuleiro, caso estejam todas ocupadas, retorna verdadeiro, ou seja, empate!
+    private static boolean teveEmpate() {
+        for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+            for (int j =0; j < TAMANHO_TABULEIRO; j++) {
+                if (tabuleiro[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /*
