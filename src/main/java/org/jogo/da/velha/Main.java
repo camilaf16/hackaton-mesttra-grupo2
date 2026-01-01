@@ -44,8 +44,8 @@ public class Main {
             exibirTabuleiro();
 
             if (vezUsuarioJogar){
-               
                 //TODO 03: Execute a chamada processar vez do usuario
+                processarVezUsuario(caractereUsuario);
 
                 // Verifica se o usuario venceu
                 //TODO 04: Este if deve executar apenas se teve ganhador 
