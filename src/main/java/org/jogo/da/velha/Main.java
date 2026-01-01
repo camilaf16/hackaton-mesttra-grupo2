@@ -61,6 +61,7 @@ public class Main {
             } else {
 
                 //TODO 05: Execute a chamada processar vez do computador
+                processarVezComputador(caractereComputador);
 
                 // Verifica se o computador venceu
                 //TODO 06: Este if deve executar apenas se teve ganhador
