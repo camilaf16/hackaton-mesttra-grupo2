@@ -1,5 +1,4 @@
-package org.jogo.da.velha;
-
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 import org.jogo.da.velha.tools.Utilities;
@@ -11,18 +10,18 @@ public class Main {
     final static String CARACTERES_IDENTIFICADORES_ACEITOS = "XOUC"; //U -> usuário, C -> Computador
 
     // Tamanho do tabuleiro 3x3. Para o primeiro nivel de dificuldade
-    // considere que este valor não será alterado.
+    // considere que este valor não será alterado. 
     // Depois que você conseguir implementar o raciocionio para o tabuleiro 3x3
     // tente ajustar o código para funcionar para qualquer tamanho de tabuleiro
     final static int TAMANHO_TABULEIRO = 3;
 
     static char[][] tabuleiro = new char[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
-
+    
     static Scanner teclado = new Scanner(System.in);
 
     public static void main(String[] args) {
 
-
+        
         inicializarTabuleiro();
 
         // Definimos aqui qual é o caractere que cada jogador irá utilizar no jogo.
@@ -45,13 +44,13 @@ public class Main {
             exibirTabuleiro();
 
             if (vezUsuarioJogar){
-
+               
                 //TODO 03: Execute a chamada processar vez do usuario
 
                 // Verifica se o usuario venceu
-                //TODO 04: Este if deve executar apenas se teve ganhador
+                //TODO 04: Este if deve executar apenas se teve ganhador 
                 if ( /*TODO: esreva aqui a chamada para teveGanhador verificar se o usuário ganhou*/ ) {
-
+                    
                     exibirTabuleiro();
                     exibirVitoriaUsuario();
                     jogoContinua = false;
@@ -74,8 +73,8 @@ public class Main {
                 //TODO 08: defina qual o vaor a variavel abaixo deve possuir para que a proxima execucao do laco seja a vez do usuário
                 vezUsuarioJogar = ????;
             }
-
-            //TODO 09: Este if deve executar apenas se o jogo continua E
+        
+            //TODO 09: Este if deve executar apenas se o jogo continua E 
             //ocorreu tempate. Utilize o metodo teveEmpate()
             if ( /*escreva aqui a condicao conforme o TODO acima*/ ) {
                 exibirTabuleiro();
@@ -96,7 +95,7 @@ public class Main {
      * caractere do jogador em questão: usuário ou computador. Um exemplo seria,
      * 'X' para usuário e 'O' para computador. Para o primeiro nível de
      * complexidade considere um tabuleiro apenas de tamanho 3x3, 3 linhas e 3
-     * colunas.
+     * colunas. 
      * Nível de complexidade: 3 de 10
      */
 
@@ -153,6 +152,9 @@ public class Main {
      */
     static boolean jogadaValida(String posicoesLivres, int linha, int coluna) {
         //TODO 13: Implementar método conforme explicação
+        return posicoesLivres.contains(linha + "," + coluna);
+
+
     }
 
     /*
@@ -249,9 +251,9 @@ public class Main {
      * Descrição: Utilizado para realizar as ações necessárias para processar a vez
      * do computador jogar. Este método é encarregado de obter a jogada do
      * computador através do método obterJogadaComputador, depois realizar a
-     * atualização do tabuleiro através do método atualizaTabuleiro.
+     * atualização do tabuleiro através do método atualizaTabuleiro. 
      * Lembre-se que para chamar o método obterJogadaUsuario
-     * é necessário saber quais posições estão livres
+     * é necessário saber quais posições estão livres 
      * Nível de complexidade: 5 de 10 se o computador for jogar aleatoriamente
      * Nível de complexidade: 8 de 10 se o computador for jogar sempre para se defender
      * Nível de complexidade: 10 de 10 se o computador for jogar para ganhar
@@ -290,7 +292,7 @@ public class Main {
      * o pelo menos um destes métodos retornar verdadeiro, o método teveGanhador
      * retorna true, caso contrário retorna false
      * Nível de complexidade: 4 de 10 se o tabuleiro for fixo 3x3
-     * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico
+     * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico 
      */
     static boolean teveGanhador(char caractereJogador) {
         //TODO 20: Implementar método conforme explicação
@@ -311,7 +313,7 @@ public class Main {
      * no caractereJogador. Se estiver presente retorna true, caso contrário retorna
      * false.
      * Nível de complexidade: 4 de 10 se o tabuleiro for fixo 3x3
-     * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico
+     * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico 
      */
     static boolean teveGanhadorLinha(char caractereJogador) {
         //TODO 21: Implementar método conforme explicação
@@ -346,7 +348,23 @@ public class Main {
      * Nível de complexidade: 3 de 10
      */
     static void limparTela() {
-        //TODO 25: Implementar método conforme explicação
+        //TODO 25: Implementar método conforme explicação  
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+
+            ProcessBuilder pb;
+            if (os.contains("win")) {
+                pb = new ProcessBuilder("cmd", "/c", "cls");
+            } else {
+                // Linux/Mac usa "clear"
+                pb = new ProcessBuilder("clear");
+            }
+            pb.inheritIO().start().waitFor();
+
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Não foi possível limpar o console: " + e.getMessage());
+            Thread.currentThread().interrupt();
+        }      
     }
 
     /*
@@ -446,11 +464,15 @@ public class Main {
      * Descrição: Utilizado para realizar o sorteio de um valor booleano. Este
      * método deve sortear um valor entre true ou false. Este valor será
      * utilizado para identificar quem começa a jogar. Dica: pesquise sobre
-     * o método random.nextBoolean() na internet. Após ralizar o sorteio o
+     * o método random.nextBoolean() na internet. Após ralizar o sorteio o 
      * método deve retornar o valor sorteado.
      * Nível de complexidade: 3 de 10
      */
     static boolean sortearValorBooleano() {
+        java.util.Random random = new java.util.Random();
+        boolean sorteio = random.nextBoolean();
+        // comando para preparar a variavel para o sorteio
+        return sorteio;
         //TODO 32: Implementar método conforme explicação
     }
 
