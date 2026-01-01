@@ -49,7 +49,7 @@ public class Main {
 
                 // Verifica se o usuario venceu
                 //TODO 04: Este if deve executar apenas se teve ganhador
-                if ( /*TODO: esreva aqui a chamada para teveGanhador verificar se o usuário ganhou*/ ) {
+                if ( teveGanhador(caractereUsuario) ) {
 
                     exibirTabuleiro();
                     exibirVitoriaUsuario();
@@ -64,7 +64,7 @@ public class Main {
 
                 // Verifica se o computador venceu
                 //TODO 06: Este if deve executar apenas se teve ganhador
-                if ( /*esreva aqui a chamada para teve ganhador*/ ) {
+                if ( teveGanhador(caractereComputador) ) {
 
                     //TODO 07: Exiba que o computador ganhou
                     jogoContinua = false;
