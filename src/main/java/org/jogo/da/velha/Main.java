@@ -3,7 +3,6 @@ package org.jogo.da.velha;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
-import org.jogo.da.velha.tools.Utilities;
 
 public class Main {
 
@@ -53,7 +52,7 @@ public class Main {
                 vezUsuarioJogar = true;
             }
 
-            if (jogoContinua || teveEmpate()) {
+            if (jogoContinua && teveEmpate()) {
                 exibirTabuleiro();
                 exibirEmpate();
                 jogoContinua = false;
@@ -328,7 +327,7 @@ public class Main {
 
             for (int colunas = 0; colunas < 3; colunas++) {
                 
-                System.out.println(" " + tabuleiro[linha][colunas] + " ");
+                System.out.print(" " + tabuleiro[linha][colunas] + " ");
 
                 if (colunas < 2) {
                     System.out.print(" | ");
