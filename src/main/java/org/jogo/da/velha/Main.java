@@ -150,7 +150,7 @@ public class Main {
             System.out.println("Jogada inválida! Tente novamente.");
         }
 
-        return Utilities.converterJogada(jogada);
+    return converterJogadaStringParaVetorInt(jogada);
     }
 
     static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
@@ -162,7 +162,7 @@ public class Main {
 
     String jogada = jogadasLivres[indiceSorteado];
 
-    return Utilities.converterJogada(jogada);
+    return converterJogadaStringParaVetorInt(jogada);
 
     }
 
@@ -355,15 +355,27 @@ public class Main {
     }
 
     static void exibirVitoriaComputador() {
-        // TODO 28: Implementar método conforme explicação
+      System.out.println("O computador venceu!");
+      System.out.println();
+      System.out.println("   (╯︵╰,)");
+      System.out.println("     /|\\");
+      System.out.println("     / \\");
     }
 
     static void exibirVitoriaUsuario() {
-        // TODO 29: Implementar método conforme explicação
+      System.out.println("O usuário venceu!");
+      System.out.println();
+      System.out.println("   \\(^_^)/");
+      System.out.println("     | |");
+      System.out.println("    /   \\");
     }
 
     static void exibirEmpate() {
-        // TODO 30: Implementar método conforme explicação
+      System.out.println("Ocorreu empate!");
+      System.out.println();
+      System.out.println("   0  X  0");
+      System.out.println("  --------");
+      System.out.println("   EMPATE");
     }
 
     private static boolean teveEmpate() {
