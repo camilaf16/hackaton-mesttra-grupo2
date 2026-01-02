@@ -190,7 +190,7 @@ public class Main {
         System.out.println("Jogada inválida! Tente novamente.");
     }
 
-    return Utilities.converterJogada(jogada);
+    return converterJogadaStringParaVetorInt(jogada);
     }
 
     static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
@@ -202,7 +202,7 @@ public class Main {
 
     String jogada = jogadasLivres[indiceSorteado];
 
-    return Utilities.converterJogada(jogada);
+    return converterJogadaStringParaVetorInt(jogada);
 
     }
 
@@ -359,39 +359,28 @@ public class Main {
      * Nível Complexidade: 2 de 10
      */
     static void exibirVitoriaComputador() {
-        //TODO 28: Implementar método conforme explicação
+      System.out.println("O computador venceu!");
+      System.out.println();
+      System.out.println("   (╯︵╰,)");
+      System.out.println("     /|\\");
+      System.out.println("     / \\");
     }
 
-    /*
-     * Descrição: Utilizado para exibir a frase: O usuário venceu!, e uma ARTE ASCII
-     * do usuário feliz. Este método é utilizado quando é identificado que o usuário
-     * venceu a partida. Lembre-se que para imprimir uma contrabara \ é necessário
-     * duas contra barras \\
-     * Nível Complexidade: 2 de 10
-     */
     static void exibirVitoriaUsuario() {
-        //TODO 29: Implementar método conforme explicação
+      System.out.println("O usuário venceu!");
+      System.out.println();
+      System.out.println("   \\(^_^)/");
+      System.out.println("     | |");
+      System.out.println("    /   \\");
     }
 
-    /*
-     * Descrição: Utilizado para exibir a frase: Ocorreu empate!, e uma ARTE ASCII
-     * do placar 0 X 0. Este método é utilizado quando é identificado que ocorreu
-     * empate. Lembre-se que para imprimir uma contrabara \ é necessário duas contra
-     * barras \\
-     * Nível Complexidade: 2 de 10
-     */
     static void exibirEmpate() {
-        //TODO 30: Implementar método conforme explicação
+      System.out.println("Ocorreu empate!");
+      System.out.println();
+      System.out.println("   0  X  0");
+      System.out.println("  --------");
+      System.out.println("   EMPATE");
     }
-
-    /*
-     * Descrição: Utilizado para analisar se ocorreu empate no jogo. Para o primeiro
-     * nível de deficuldade, basta verificar se todas as posições do tabuleiro não
-     * estão preenchidas com o caractere ' '. Não se preocupe se teve ganhador, não
-     * é responsabilidade deste método esta análise. Sugestão: pense em utilizar a
-     * função retornarPosicoesLivres. Retorne true se teve empate ou false
-     * Nível de complexidade: 3 de 10
-     */
     static boolean teveEmpate() {
         //TODO 31: Implementar método conforme explicação
 
