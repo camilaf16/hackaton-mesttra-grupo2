@@ -15,14 +15,15 @@ public class Main {
     
     static Scanner teclado = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         inicializarTabuleiro();
+        logo();
 
         char caractereUsuario = obterCaractereUsuario(); 
         char caractereComputador = obterCaractereComputador(caractereUsuario);         
         boolean vezUsuarioJogar = sortearValorBooleano(); 
-        boolean jogoContinua = false;
+        boolean jogoContinua;
 
         do {
             jogoContinua = true;
@@ -159,7 +160,7 @@ public class Main {
     }
 
     static void processarVezUsuario(char caractereUsuario) {
-        System.out.println("VEZ DO USUÁRIO");
+        System.out.println("SUA VEZ");
         System.out.println();
 
         String posicoesLivres = retornarPosicoesLivres();
@@ -192,8 +193,6 @@ public class Main {
         int colunaComputador = Character.getNumericValue(jogadaComputador.charAt(1));
 
         tabuleiro[linhaComputador][colunaComputador] = caractereComputador;
-        System.out.println(
-                "Computador jogou na posição: Linha: " + (linhaComputador + 1) + ", Coluna: " + (colunaComputador + 1));
     }
 
     static String retornarPosicoesLivres() {
@@ -296,12 +295,13 @@ public class Main {
         }      
     }
 
-    static void exibirTabuleiro() {
+    static void exibirTabuleiro() throws InterruptedException {
+
+        Thread.sleep(500);
 
         limparTela();
 
-        System.out.println();
-        System.out.println();
+        logo();
 
         for (int linha = 0; linha < 3; linha++) {
 
@@ -373,5 +373,19 @@ public class Main {
         Random random = new Random();
         boolean sorteio = random.nextBoolean();
         return sorteio;
+    }
+
+    static void logo() {
+        System.out.println("""
+                      
+                      ██╗ ██████╗  ██████╗  ██████╗\s
+                      ██║██╔═══██╗██╔════╝ ██╔═══██╗
+                      ██║██║   ██║██║  ███╗██║   ██║
+                 ██   ██║██║   ██║██║   ██║██║   ██║
+                 ╚█████╔╝╚██████╔╝╚██████╔╝╚██████╔╝
+                  ╚════╝  ╚═════╝  ╚═════╝  ╚═════╝\s
+                                    D A   V E L H A
+                
+                """);
     }
 }
