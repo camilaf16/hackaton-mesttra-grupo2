@@ -1,6 +1,7 @@
 package org.jogo.da.velha;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,7 +17,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        
         inicializarTabuleiro();
 
         char caractereUsuario = obterCaractereUsuario(); 
@@ -107,7 +107,7 @@ public class Main {
 
         while(!valorValido){
             try {
-                System.out.println("Digite o caractere do computador: ");
+                System.out.print("Digite o caractere do computador: ");
                 String entrada = teclado.nextLine();
 
                 if (entrada.isEmpty()) {
@@ -130,15 +130,10 @@ public class Main {
         return valor;
     }
 
-    static boolean jogadaValida(String posicoesLivres, int linha, int coluna) {
-        return posicoesLivres.contains(linha + "," + coluna);
-    }
-
     static int[] obterJogadaUsuario(String posicoesLivres, Scanner teclado) {
         String jogada;
 
         while (true) {
-            System.out.println("Posições livres: " + posicoesLivres);
             System.out.print("Digite sua jogada (linha e coluna): ");
             jogada = teclado.nextLine();
 
@@ -150,19 +145,6 @@ public class Main {
         }
 
     return converterJogadaStringParaVetorInt(jogada);
-    }
-
-    static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
-    String[] jogadasLivres = posicoesLivres.split(";");
-
-    Random random = new Random();
-
-    int indiceSorteado = random.nextInt(jogadasLivres.length);
-
-    String jogada = jogadasLivres[indiceSorteado];
-
-    return converterJogadaStringParaVetorInt(jogada);
-
     }
 
     static int[] converterJogadaStringParaVetorInt(String jogada) {
@@ -200,8 +182,6 @@ public class Main {
             }
         }
 
-        System.out.println("Posições Livres: " + listaPosicoesLivres);
-
         if (listaPosicoesLivres.isEmpty()) {
             System.out.println("Computador não consegue jogar pois não há mais posições livres!");
             return;
@@ -220,17 +200,14 @@ public class Main {
 
         StringBuilder posicoesLivres = new StringBuilder();
 
-        int posicao = 1;
-
         for (int linha = 0; linha < tabuleiro.length; linha++) {
 
             for (int coluna = 0; coluna < tabuleiro[linha].length; coluna++) {
 
                 if (tabuleiro[linha][coluna] == ' ') {
-                    posicoesLivres.append(posicao).append(" ");
+                    posicoesLivres.append(linha).append(" ").append(coluna).append(" | ");
                 }
 
-                posicao++;
             }
         }
 
@@ -323,6 +300,9 @@ public class Main {
 
         limparTela();
 
+        System.out.println();
+        System.out.println();
+
         for (int linha = 0; linha < 3; linha++) {
 
             for (int colunas = 0; colunas < 3; colunas++) {
@@ -330,16 +310,17 @@ public class Main {
                 System.out.print(" " + tabuleiro[linha][colunas] + " ");
 
                 if (colunas < 2) {
-                    System.out.print(" | ");
+                    System.out.print(" │ ");
                 }
             }
 
             System.out.println();
 
             if (linha < 2) {
-                System.out.println("--------");
+                System.out.println("────┼─────┼────");
             }
         }
+        System.out.println();
     }
 
     static void atualizaTabuleiro(int[] jogada, char caractereJogador) { 
