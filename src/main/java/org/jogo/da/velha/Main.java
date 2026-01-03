@@ -1,7 +1,6 @@
 package org.jogo.da.velha;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -20,8 +19,8 @@ public class Main {
         inicializarTabuleiro();
         logo();
 
-        char caractereUsuario = obterCaractereUsuario(); 
-        char caractereComputador = obterCaractereComputador(caractereUsuario);         
+        char caractereUsuario = obterCaractereUsuario();
+        char caractereComputador = Character.toLowerCase(caractereUsuario) == 'x' ? 'o' : 'x';
         boolean vezUsuarioJogar = sortearValorBooleano(); 
         boolean jogoContinua;
 
@@ -96,36 +95,6 @@ public class Main {
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
                 System.out.println();
-            }
-        }
-        return valor;
-    }
-
-    static char obterCaractereComputador(char caractereUsuario) {
-
-        char valor = '\0';
-        boolean valorValido = false;
-
-        while(!valorValido){
-            try {
-                System.out.print("Digite o caractere do computador: ");
-                String entrada = teclado.nextLine();
-
-                if (entrada.isEmpty()) {
-                    throw new IllegalArgumentException("Entrada vazia.");
-                }
-                
-                if (entrada.length() > 0) {
-                valor = Character.toUpperCase(entrada.charAt(0));
-                    if(CARACTERES_IDENTIFICADORES_ACEITOS.indexOf(valor) != -1 
-                    && valor != caractereUsuario){
-                        valorValido = true;
-                    } else {
-                        throw new IllegalArgumentException("Valor digitado é incorreto.");
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                System.out.println("Valor digitado é incorreto.");
             }
         }
         return valor;
