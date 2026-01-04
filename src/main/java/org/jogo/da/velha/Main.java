@@ -1,12 +1,14 @@
 package org.jogo.da.velha;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
-    final static String CARACTERES_IDENTIFICADORES_ACEITOS = "XOUC";
+    final static String CARACTERES_IDENTIFICADORES_ACEITOS = "XO";
 
     final static int TAMANHO_TABULEIRO = 3;
 
@@ -14,13 +16,17 @@ public class Main {
     
     static Scanner teclado = new Scanner(System.in);
 
+    static Random random = new Random();
+
+    static String jogadaRecenteUsuario = "";
+
     public static void main(String[] args) throws InterruptedException {
 
         inicializarTabuleiro();
         logo();
 
         char caractereUsuario = obterCaractereUsuario();
-        char caractereComputador = Character.toLowerCase(caractereUsuario) == 'x' ? 'o' : 'x';
+        char caractereComputador = Character.toUpperCase(caractereUsuario) == 'X' ? 'O': 'X'; 
         boolean vezUsuarioJogar = sortearValorBooleano(); 
         boolean jogoContinua;
 
@@ -77,7 +83,7 @@ public class Main {
 
         while(!valorValido){
             try {
-                System.out.print("Digite o caractere do usuario: ");
+                System.out.print("Digite o caractere do usuario (X ou O): ");
                 String entrada = teclado.nextLine();
 
                 if (entrada.isEmpty()) {
@@ -101,12 +107,27 @@ public class Main {
     }
 
     static int[] obterJogadaUsuario(String posicoesLivres, Scanner teclado) {
+        
         String jogada;
+        String entrada;
+        int[] valor = new int[2];
 
         while (true) {
-            System.out.print("Digite sua jogada (linha e coluna): ");
-            jogada = teclado.nextLine();
 
+            jogada = "";
+
+            System.out.print("Digite linha e coluna (1 a 3), ex: 2 2: ");
+            entrada = teclado.nextLine();
+             
+            String [] partes = entrada.split(" ");
+            
+            valor[0] = Integer.parseInt(partes[0]) - 1;//linha
+            jogada += valor[0];
+            jogada += " ";
+            valor[1] = Integer.parseInt(partes[1]) - 1;//coluna
+            jogada += valor[1];
+
+        
             if (posicoesLivres.contains(jogada)) {
                 break;
             }
@@ -114,8 +135,33 @@ public class Main {
             System.out.println("Jogada inválida! Tente novamente.");
         }
 
-    return converterJogadaStringParaVetorInt(jogada);
+        return converterJogadaStringParaVetorInt(jogada);
     }
+
+   static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
+
+        String jogada;
+        int[] valor = new int[2];
+        
+        while (true) {
+
+            jogada = "";
+
+            valor[0] = random.nextInt(3);//linha
+            jogada += valor[0];
+            jogada += " ";
+            valor[1] = random.nextInt(3);//coluna
+            jogada += valor[1];
+        
+            if (posicoesLivres.contains(jogada)) {
+                break;
+            }
+        }
+
+        return converterJogadaStringParaVetorInt(jogada);
+    }
+
+
 
     static int[] converterJogadaStringParaVetorInt(String jogada) {
         String [] partes = jogada.split(" ");
@@ -141,27 +187,15 @@ public class Main {
 
     static void processarVezComputador(char caractereComputador) {
 
-        String listaPosicoesLivres = "";
+        String posicoesLivres = retornarPosicoesLivres();
 
-        for (int linha = 0; linha < tabuleiro.length; linha++) {
-            for (int coluna = 0; coluna < tabuleiro[linha].length; coluna++) {
 
-                if (tabuleiro[linha][coluna] == ' ') {
-                    listaPosicoesLivres += linha + "" + coluna + ";";
-                }
-            }
-        }
+        int[] jogada = obterJogadaComputador(posicoesLivres, teclado);
+    
 
-        if (listaPosicoesLivres.isEmpty()) {
-            System.out.println("Computador não consegue jogar pois não há mais posições livres!");
-            return;
-        }
+        jogada = obterJogadaComputador(posicoesLivres, teclado);
 
-        String jogadaComputador = listaPosicoesLivres.split(" ")[0];
-        int linhaComputador = Character.getNumericValue(jogadaComputador.charAt(0));
-        int colunaComputador = Character.getNumericValue(jogadaComputador.charAt(1));
-
-        tabuleiro[linhaComputador][colunaComputador] = caractereComputador;
+        atualizaTabuleiro(jogada, caractereComputador); 
     }
 
     static String retornarPosicoesLivres() {
@@ -272,8 +306,12 @@ public class Main {
 
         logo();
 
+        System.out.println("  1     2      3");
         for (int linha = 0; linha < 3; linha++) {
 
+            
+            System.out.print(linha + 1 );
+    
             for (int colunas = 0; colunas < 3; colunas++) {
                 
                 System.out.print(" " + tabuleiro[linha][colunas] + " ");
@@ -286,7 +324,7 @@ public class Main {
             System.out.println();
 
             if (linha < 2) {
-                System.out.println("────┼─────┼────");
+                System.out.println(" ────┼─────┼────");
             }
         }
         System.out.println();
